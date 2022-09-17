@@ -19,10 +19,10 @@ public class FileUploadController {
 
     @RequestMapping("")
     @ResponseBody
-    public String upload(@RequestParam("img1") MultipartFile img1) {
-        File file = new File(genFileDirPath + "/1.png");
+    public String upload(@RequestParam("img1") MultipartFile img1,@RequestParam("img2") MultipartFile img2) {
         try {
-            img1.transferTo(file);
+            img1.transferTo(new File(genFileDirPath + "/1.png"));
+            img2.transferTo(new File(genFileDirPath + "/2.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
