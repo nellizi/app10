@@ -3,6 +3,7 @@ package com.ll.exam.app10;
 import com.ll.exam.app10.app.home.controller.HomeController;
 import com.ll.exam.app10.app.member.Service.MemberService;
 import com.ll.exam.app10.app.member.controller.MemberController;
+import com.ll.exam.app10.app.member.entity.Member;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Transactional
 @ActiveProfiles({"base-addi", "test"})
-class App10ApplicationTests {
+class AppTest {
 
 	@Autowired
 	private MockMvc mvc;
@@ -133,9 +134,17 @@ class App10ApplicationTests {
 								.characterEncoding("UTF-8"))
 				.andDo(print());
 
-		// 5번회원이 생성되어야 함, 테스트
-		// 여기 마저 구현
+		resultActions
+				.andExpect(status().is3xxRedirection())
+				.andExpect(redirectedUrl("/member/profile"))
+				.andExpect(handler().handlerType(MemberController.class))
+				.andExpect(handler().methodName("join"));
+
+		Member member = memberService.getMemberById(5L);
+
+		assertThat(member).isNotNull();
 
 		// 5번회원의 프로필 이미지 제거
+		memberService.removeProfileImg(member);
 	}
 }
