@@ -32,16 +32,20 @@ public class MemberService implements UserDetailsService {
     }
 
     public Member join(String username, String password, String email, MultipartFile profileImg) {
-        String profileImgRelPath = "member/" + UUID.randomUUID().toString() + ".png";
-        File profileImgFile = new File(genFileDirPath + "/" + profileImgRelPath);
+        String profileImgDirName = "member";
+        String fileName = UUID.randomUUID().toString() + ".png";
+        String profileImgDirPath = genFileDirPath + "/" + profileImgDirName;
+        String profileImgFilePath = profileImgDirPath + "/" + fileName;
 
-        profileImgFile.mkdirs(); // 관련된 폴더가 혹시나 없다면 만들어준다.
+        new File(profileImgDirPath).mkdirs(); // 폴더가 혹시나 없다면 만들어준다.
 
         try {
-            profileImg.transferTo(profileImgFile);
+            profileImg.transferTo(new File(profileImgFilePath));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        String profileImgRelPath = profileImgDirName + "/" + fileName;
 
         Member member = Member.builder()
                 .username(username)
@@ -55,8 +59,8 @@ public class MemberService implements UserDetailsService {
         return member;
     }
 
-    public Member getMemberById(Long loginedMemberId) {
-        return memberRepository.findById(loginedMemberId).orElse(null);
+    public Member getMemberById(Long id) {
+        return memberRepository.findById(id).orElse(null);
     }
 
     @Override
