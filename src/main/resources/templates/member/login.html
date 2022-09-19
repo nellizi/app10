@@ -1,7 +1,7 @@
-<h1>회원가입</h1>
+<h1>로그인</h1>
 
 <script>
-    function JoinForm__submit(form) {
+    function LoginForm__submit(form) {
         form.username.value = form.username.value.trim();
 
         if (form.username.value.length == 0) {
@@ -18,21 +18,13 @@
             return;
         }
 
-        form.email.value = form.email.value.trim();
-
-        if (form.email.value.length == 0) {
-            alert("이메일을 입력해주세요.");
-            form.email.focus();
-            return;
-        }
-
         form.submit();
     }
 
 </script>
 
 
-<form th:action method="POST" enctype="multipart/form-data" onsubmit="JoinForm__submit(this); return false;">
+<form th:action method="POST" onsubmit="LoginForm__submit(this); return false;">
     <div>
         <span>아이디</span>
         <input type="text" name="username">
@@ -42,15 +34,7 @@
         <input type="password" name="password">
     </div>
     <div>
-        <span>이메일</span>
-        <input type="email" name="email">
-    </div>
-    <div>
-        <span>프로필이미지</span>
-        <input type="file" name="profileImg" accept="image/png, image/gif, image/jpeg">
-    </div>
-    <div>
-        <span>가입</span>
-        <input type="submit" value="가입">
+        <span>로그인</span>
+        <input type="submit" value="로그인">
     </div>
 </form>
