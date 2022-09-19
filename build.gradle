@@ -47,6 +47,8 @@ dependencies {
 
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 	implementation "com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.0"
+
+	implementation 'org.apache.tika:tika-core:2.4.1' //url에서 파일 확장자 뽑아내기
 }
 
 tasks.named('test') {
