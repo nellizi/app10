@@ -1,4 +1,4 @@
-package com.ll.exam.app10.app.base;
+package com.ll.exam.app10.app.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
