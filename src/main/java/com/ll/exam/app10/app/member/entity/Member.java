@@ -1,5 +1,6 @@
 package com.ll.exam.app10.app.member.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ll.exam.app10.app.base.AppConfig;
 import com.ll.exam.app10.app.base.entity.BaseEntity;
 import lombok.*;
