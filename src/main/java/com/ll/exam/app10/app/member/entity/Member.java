@@ -19,6 +19,7 @@ import java.io.File;
 public class Member extends BaseEntity {
     @Column(unique = true)
     private String username;
+    @JsonIgnore
     private String password;
     private String email;
     private String profileImg;
