@@ -61,6 +61,7 @@ public class ArticleController {
         msg = Util.url.encode(msg);
         return "redirect:/article/%d?msg=%s".formatted(article.getId(), msg);
     }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
     public String showDetail(Model model, @PathVariable Long id) {
@@ -69,6 +70,7 @@ public class ArticleController {
 
         return "article/detail";
     }
+
     @GetMapping("/{id}/json/forDebug")
     @ResponseBody
     public Article showDetailJson(Model model, @PathVariable Long id) {
@@ -89,7 +91,18 @@ public class ArticleController {
         return "article/modify";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/{id}/modify")
     public String modify(@AuthenticationPrincipal MemberContext memberContext, Model model, @PathVariable Long id, @Valid ArticleForm articleForm) {
-        return "/article/%d".formatted(id);
+        Article article = articleService.getForPrintArticleById(id);
+
+        if (memberContext.memberIsNot(article.getAuthor())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+
+        articleService.modify(article, articleForm.getSubject(), articleForm.getContent());
+
+        String msg = Util.url.encode("%d번 게시물이 수정되었습니다.".formatted(id));
+        return "redirect:/article/%d?msg=%s".formatted(id, msg);
+    }
 }
