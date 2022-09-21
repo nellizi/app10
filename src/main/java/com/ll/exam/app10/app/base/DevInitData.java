@@ -2,6 +2,7 @@ package com.ll.exam.app10.app.base;
 
 
 import com.ll.exam.app10.app.article.entity.Article;
+import com.ll.exam.app10.app.article.service.ArticleService;
 import com.ll.exam.app10.app.member.Service.MemberService;
 import com.ll.exam.app10.app.member.entity.Member;
 import org.springframework.boot.CommandLineRunner;
@@ -16,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class DevInitData {
     // CommandLineRunner : 주로 앱 실행 직후 초기데이터 세팅 및 초기화에 사용
     @Bean
-    CommandLineRunner init(MemberService memberService, PasswordEncoder passwordEncoder) {
         CommandLineRunner init(MemberService memberService, ArticleService articleService, PasswordEncoder passwordEncoder) {
             return args -> {
                 String password = passwordEncoder.encode("1234");
