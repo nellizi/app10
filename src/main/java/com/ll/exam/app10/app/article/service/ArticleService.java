@@ -5,11 +5,13 @@ import com.ll.exam.app10.app.article.entity.Article;
 import com.ll.exam.app10.app.article.repository.ArticleRepository;
 import com.ll.exam.app10.app.fileUpload.entity.GenFile;
 import com.ll.exam.app10.app.fileUpload.service.GenFileService;
+import com.ll.exam.app10.app.hashTag.entity.HashTag;
 import com.ll.exam.app10.app.hashTag.service.HashTagService;
 import com.ll.exam.app10.app.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -56,7 +58,9 @@ public class ArticleService {
 
         Map<String, GenFile> genFileMap = genFileService.getRelGenFileMap(article);
 
-        article.getExtra().put("age__name__33", 22);
+        List<HashTag> hashTags = hashTagService.getHashTags(article);
+
+        article.getExtra().put("hashTags", hashTags);
         article.getExtra().put("genFileMap", genFileMap);
 
         return article;

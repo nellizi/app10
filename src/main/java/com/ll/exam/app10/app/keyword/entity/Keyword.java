@@ -16,4 +16,8 @@ import javax.persistence.Entity;
 @ToString(callSuper = true)
 public class Keyword extends BaseEntity {
     private String content;
+
+    public String getListUrl() {
+        return "/article/list?kwType=keyword&kw=%s".formatted(content);
+    }
 }

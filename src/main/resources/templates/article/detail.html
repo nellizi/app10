@@ -30,10 +30,20 @@
             내용 : [[${article.content}]]
         </div>
 
-        <div th:each="entry : ${article.extra.genFileMap}">
-            <img th:src="@{${entry.value.url}}" alt="">
-
+        <div>
+            해시태그 :
+            <th:block th:each="hashTag : ${article.extra.hashTags}">
+                <a th:href="@{${hashTag.keyword.listUrl}}">
+                    #[[${hashTag.keyword.content}]]
+                </a>
+            </th:block>
         </div>
+
+        <div th:each="entry : ${article.extra.genFileMap}">
+            <hr/>
+            <img th:src="@{${entry.value.url}}" alt="">
+        </div>
+
     </div>
 </section>
 </body>
