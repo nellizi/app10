@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 
@@ -33,6 +34,14 @@ public class ArticleController {
 
     private final ArticleService articleService;
     private final GenFileService genFileService;
+
+    @GetMapping("/list")
+    public String showList(Model model) {
+        List<Article> articles = articleService.getArticles();
+        model.addAttribute("articles", articles);
+
+        return "article/list";
+    }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/write")
